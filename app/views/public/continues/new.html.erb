@@ -1,0 +1,12 @@
+<h2>New continue</h2>
+
+<%=form_with model: Continue.new, url:continues_path, method: :post do |f| %>
+  <h4>タイトル</h4>
+  <%= f.text_area :title %>
+
+  <h4>内容</h4>
+  <%= f.text_area :post %>
+
+  <%= f.submit '継続を開始する' %>
+
+  <% end %>

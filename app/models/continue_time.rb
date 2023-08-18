@@ -1,0 +1,2 @@
+class ContinueTime < ApplicationRecord
+end
