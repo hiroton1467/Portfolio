@@ -9,6 +9,13 @@ class Public::UsersController < ApplicationController
         @user = User.find(params[:id])
     end
     
+    def favorite
+      @user = User.find(params[:id])
+      @likes= Like.where(user_id: @user.id).pluck(:continue_id)
+      #@likes = @user.likes.pluck(:continue_id)
+      @favorite_continues = Continue.find(@likes)
+    end
+    
     def update
         @user = User.find(current_user.id)
      if @user.update(user_params)

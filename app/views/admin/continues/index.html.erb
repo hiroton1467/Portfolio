@@ -1,0 +1,13 @@
+<table>
+ <tbody>
+      <% @continues.each do |continue| %>
+        <tr>
+          <td><%= image_tag continue.user.get_profile_image(100,100) %></td>
+          <td><%= link_to continue.user.name, user_path(continue.user.id) %></td>
+          <td><%= link_to continue.title, continue_path(continue.id) %></td>
+          <td><%= link_to "#{continue.comments.count} コメント", continue_path(continue.id) %></td>
+          <td><%= link_to "削除", continue_path(continue.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>

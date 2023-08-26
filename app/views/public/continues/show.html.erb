@@ -1,6 +1,13 @@
 <div>
+  <span style="color:green;"><%= flash[:notice] %></sp>
+</div>
+
+<div>
 <p><%= @continue.post %></p>
 </div>
+
+<%= button_to "開始",start_path%>
+<%= button_to "終了",end_path%>
 
 
 
@@ -11,12 +18,12 @@
 
 <div>
 <% if @continue.liked_by?(current_user) %>
-    <%= link_to continue_likes_path(@continue), method: :post do %>
+    <%= link_to continue_likes_path(@continue), method: :delete do %>
         <span style="color:red;">❤︎</span>
         <%= @continue.likes.count %> いいね
     <% end %>
 <% else %>
-    <%= link_to continue_likes_path(@continue), method: :delete do %>
+    <%= link_to continue_likes_path(@continue), method: :post do %>
         <span>♡︎</span>
         <%= @continue.likes.count %> いいね
     <% end %>

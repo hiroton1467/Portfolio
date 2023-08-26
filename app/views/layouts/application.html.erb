@@ -14,8 +14,8 @@
     <header>
     <% if admin_signed_in? %>
       <p><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %> </p>
-      <p><%#= link_to "顧客一覧", admin_customers_path %></p>
-      <p><%#= link_to "商品一覧", admin_items_path %></p>
+      <p><%= link_to "継続一覧", admin_continues_path %></p>
+      <p><%= link_to "ユーザー一覧", admin_users_path %></p>
       <p><%#= link_to "注文履歴", admin_root_path %></p>
 
     <% elsif user_signed_in? %>
@@ -29,7 +29,7 @@
     <%= form_with url: search_path, local: true, method: :get do |f| %>
       <%= f.text_field :word %>
 
-      <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backward_match"], ["部分一致","partial_match"]]) %>
+      <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
       <%= f.submit "検索", class: "btn btn-primary" %>
     <% end %>
   </div>

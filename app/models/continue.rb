@@ -11,15 +11,11 @@ class Continue < ApplicationRecord
 
    def self.looks(search, word)
      if search == "perfect_match"
-  　    @Continue = Continue.where("title LIKE?","#{word}")
-     elsif search == "forward_match"
-       @Continue = Continue.where("title LIKE?","#{word}%")
-     elsif search == "backward_match"
-       @Continue = Continue.where("title LIKE?","%#{word}")
+       where(title: word)
      elsif search == "partial_match"
-       @Continue = Continue.where("title LIKE?","%#{word}%")
+       where("title LIKE ?","%#{word}%")
      else
-       @Continue = Copntinue.all
+       all
      end
    end
 

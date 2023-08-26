@@ -5,6 +5,11 @@ Rails.application.routes.draw do
 }
    namespace :admin do
    root to: 'homes#top'
+   get "users/favorite/:id" => "users#favorite", as: 'favorite'
+   resources :users, only: [:index, :show, :edit, :update, :destroy]
+   resources :continues, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
+      resources :comments, only: [:create, :destroy]
+   end
   end
 
 
@@ -18,13 +23,16 @@ Rails.application.routes.draw do
   scope module: :public do
     root to: "homes#top"
     get "continues/search" => "continues#search", as: 'search'
-    get "continues/favorite" => "continues#favorite", as: 'favorite'
+    #get "continues/favorite" => "continues#favorite", as: 'favorite'
     get "continues/f_detail" => "continues#f_detail", as: 'f_detail'
+    get "users/favorite/:id" => "users#favorite", as: 'favorite'
     get '/users/:id/leave' => 'users#leave', as: 'leave'
      patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+     post '/users/start_continue' => 'user#start_continue' , as: 'start'
+     post '/users/end_continue' => 'user#end_continue' , as: 'end'
 
 
-    resources :users, only: [:show, :edit, :update, :leave, :withdrawl, :destroy]
+    resources :users, only: [:show, :edit, :update, :destroy]
     resources :continues, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]

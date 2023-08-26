@@ -16,6 +16,8 @@ class Public::ContinuesController < ApplicationController
   end
 
   def favorite
+    @continue.likes = Continue.like.where(user_id: @user.id).pluck(:post_id)
+    @like_continues = Continue.find(likes)
   end
 
   def search
@@ -41,7 +43,7 @@ class Public::ContinuesController < ApplicationController
      @continue = Continue.new(continue_params)
      @continue.user_id = current_user.id
    if @continue.save
-     flash[:notice] = "Book was successfully created."
+     flash[:notice] = "投稿に成功しました"
     redirect_to continue_path(@continue.id)
    else
      @continues = Continue.all
