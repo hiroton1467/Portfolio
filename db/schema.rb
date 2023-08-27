@@ -61,9 +61,10 @@ ActiveRecord::Schema.define(version: 2023_08_13_130406) do
   end
 
   create_table "continue_times", force: :cascade do |t|
-    t.datetime "start_at", null: false
-    t.datetime "end_at", null: false
-    t.datetime "period", null: false
+    t.integer "user_id", null: false
+    t.integer "continue_id", null: false
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

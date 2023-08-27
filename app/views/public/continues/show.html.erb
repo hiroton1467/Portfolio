@@ -1,19 +1,39 @@
 <div>
-  <span style="color:green;"><%= flash[:notice] %></sp>
+  <span style="color:green;"><%= flash[:notice] %></span>
 </div>
 
 <div>
 <p><%= @continue.post %></p>
 </div>
 
-<%= button_to "開始",start_path%>
-<%= button_to "終了",end_path%>
+
+<% if @continue.user == current_user %>
+    <% unless @continue.continue_times.where(continue_id: params[:id], end_at: nil).exists? %>
+        <%= button_to "開始",start_path(continue_id: params[:id]) %>
+    <% else %>
+        <%= button_to "終了",end_path(continue_id: params[:id]) %>
+    <% end %>
+<% end %>
+
+<%# @start.each do |start| %>
+<%#= start.created_at.strftime('%Y/%m/%d') %>
+<%# end %>
 
 
-
-
-
-
+<% @continue.continue_times.each.with_index(1) do |ct, i| %>
+    <div class="row">
+        <div class="col-md-6">
+            開始: <%= i %>回目:
+            <%= ct.start_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') %>
+        </div>
+        <div class="col-md-6">
+            修了:
+            <%= ct.end_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') unless ct.end_at.nil? %>
+            継続時間:
+            <%= "#{((ct.end_at - ct.start_at) / 60).round}分" unless ct.end_at.nil? %>
+        </div>
+    </div>
+<% end %>
 
 
 <div>

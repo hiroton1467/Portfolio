@@ -5,8 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :profile_image
-  
+
   has_many :continues, dependent: :destroy
+  has_many :continue_times, dependent: :destroy
   has_many :likes, dependent: :destroy
 
 def get_profile_image(width, height)

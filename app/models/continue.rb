@@ -1,5 +1,6 @@
 class Continue < ApplicationRecord
 
+  has_many :continue_times, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
   belongs_to :user

@@ -28,8 +28,8 @@ Rails.application.routes.draw do
     get "users/favorite/:id" => "users#favorite", as: 'favorite'
     get '/users/:id/leave' => 'users#leave', as: 'leave'
      patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
-     post '/users/start_continue' => 'user#start_continue' , as: 'start'
-     post '/users/end_continue' => 'user#end_continue' , as: 'end'
+     post '/users/start_continue' => 'continue_times#start_continue' , as: 'start'
+     post '/users/end_continue' => 'continue_times#end_continue' , as: 'end'
 
 
     resources :users, only: [:show, :edit, :update, :destroy]
