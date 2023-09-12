@@ -6,40 +6,61 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/80957e461f.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <header>
+    <header class="shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
     <% if admin_signed_in? %>
-      <p><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %> </p>
-      <p><%= link_to "継続一覧", admin_continues_path %></p>
-      <p><%= link_to "ユーザー一覧", admin_users_path %></p>
-      <p><%#= link_to "注文履歴", admin_root_path %></p>
+      <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+      <%= link_to "継続一覧", admin_continues_path %>
+      <%= link_to "ユーザー一覧", admin_users_path %>
 
-    <% elsif user_signed_in? %>
-      <p><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></p>
-      <p><%= link_to "継続一覧", continues_path %></p>
-      <p><%#= link_to "カート", cart_items_path(current_customer.id) %></p>
-      <p><%= link_to "マイページ", user_path(current_user.id) %></p>
-      <p><%= link_to "新規投稿", new_continue_path %></p>
-      
       <div class="search_form">
-    <%= form_with url: search_path, local: true, method: :get do |f| %>
+    　<%= form_with url: admin_search_path, local: true, method: :get do |f| %>
       <%= f.text_field :word %>
 
       <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
       <%= f.submit "検索", class: "btn btn-primary" %>
     <% end %>
-  </div>
+      </div>
 
-    <% else  %>
-      <p><%= link_to "新規登録", new_user_registration_path %></p>
-      <p><%= link_to "ログイン", new_user_session_path %></p>
-      <p><%#= link_to "商品一覧", items_path %></p>
+    <% elsif user_signed_in? %>
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+
+      <i class="fa-sharp fa-light fa-indent"></i>
+      <%= link_to "継続一覧", continues_path %>
+
+      <i class="fa-solid fa-user"></i>
+      <%= link_to "マイページ", user_path(current_user.id) %>
+
+      <i class="fa-regular fa-plus"></i>
+      <%= link_to "新規投稿", new_continue_path %>
+
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <div class="search_form">
+      <%= form_with url: search_path, local: true, method: :get do |f| %>
+      <%= f.text_field :word %>
+
+      <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["部分一致","partial_match"]]) %>
+      <%= f.submit "検索", class: "btn btn-primary" %>
+    <% end %>
+      </div>
+      </div>
+    </nav>
+
+    <% else %>
+      <%= link_to new_user_registration_path do %>
+      <i class="fa-sharp fa-solid fa-user-plus"></i>新規登録
+      <% end %>
+      <%= link_to "ログイン", new_user_session_path %>
     <% end %>
   </header>
+  <body>
     <%= yield %>
   </body>
 </html>

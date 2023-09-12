@@ -3,7 +3,7 @@
 </div>
 
 <div>
-<p><%= @continue.post %></p>
+<h2>Title : <%= @continue.post %></h2>
 </div>
 
 
@@ -15,22 +15,31 @@
     <% end %>
 <% end %>
 
-<%# @start.each do |start| %>
-<%#= start.created_at.strftime('%Y/%m/%d') %>
-<%# end %>
-
-
 <% @continue.continue_times.each.with_index(1) do |ct, i| %>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             開始: <%= i %>回目:
             <%= ct.start_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') %>
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-4">
             修了:
             <%= ct.end_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') unless ct.end_at.nil? %>
+        </div>
+
+        <div class="col-md-4">
             継続時間:
-            <%= "#{((ct.end_at - ct.start_at) / 60).round}分" unless ct.end_at.nil? %>
+            <% diff = ct.end_at - ct.start_at unless ct.end_at.nil? %>
+            <% s = diff % 60 unless ct.end_at.nil? %>
+            <% m = ((diff - s) / 60) % 60 unless ct.end_at.nil? %>
+            <% h = ((diff - s - m * 60) / (60 ** 2)) % 24 unless ct.end_at.nil? %>
+            <% d = ((diff - s - m * 60 - h * 60 ** 2) / (60**2 * 24)) unless ct.end_at.nil? %>
+            <%= "#{d.to_i}日 #{h.to_i}時間#{m.to_i}分#{s.to_i}秒" unless ct.end_at.nil? %>
+
+
+            <%#= "#{((ct.end_at - ct.start_at) / 86400).round}日" unless ct.end_at.nil? %>
+            <%#= "#{((ct.end_at - ct.start_at) / 3600).round}時間" unless ct.end_at.nil? %>
+            <%#= "#{((ct.end_at - ct.start_at) / 60).round}分" unless ct.end_at.nil? %>
         </div>
     </div>
 <% end %>
@@ -52,15 +61,24 @@
 
 <div>
   <p>コメント件数:<%= @continue.comments.count %></p>
-  <% @continue.comments.each do |comment| %>
-   <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
-   <%= comment.user.name %>
-   <%= comment.content %>
-   <% if comment.user == current_user %>
-      <%= link_to "削除", continue_comment_path(comment.continue, comment), method: :delete %>
-   <% end %>
-  <% end %>
 </div>
+
+<table>
+  <% @continue.comments.each do |comment| %>
+ <tr>
+   <td>
+     <%= image_tag comment.user.get_profile_image(100,100) %>
+     <%= comment.user.name %>
+   </td>
+   <td><%= comment.content %></td>
+
+   <% if comment.user == current_user %>
+      <td><%= link_to "削除", continue_comment_path(comment.continue, comment), method: :delete %><td>
+   <% end %>
+  </tr>
+  <% end %>
+</table>
+
 
 <div>
   <%= form_with model: [@continue, @comment] do |f| %>

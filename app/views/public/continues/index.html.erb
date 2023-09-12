@@ -1,12 +1,25 @@
-<table>
+<div class="container">
+<h2>＜継続一覧＞</h2>
+<table class = "table">
+ <thead class = "table-dark">
+   <tr>
+    <th>ユーザー</th>
+    <th>継続内容</th>
+    <th>いいね数</th>
+   </tr>
+ </thead>
+
  <tbody>
       <% @continues.each do |continue| %>
         <tr>
-          <td><%= image_tag continue.user.get_profile_image(100,100) %></td>
-          <td><%= link_to continue.user.name, user_path(continue.user.id) %></td>
+          <td>
+            <%= image_tag continue.user.get_profile_image(100,100) %>
+            <%= link_to continue.user.name, user_path(continue.user.id) %>
+          </td>
           <td><%= link_to continue.title, continue_path(continue.id) %></td>
-          <td><%= link_to "#{continue.comments.count} コメント", continue_path(continue.id) %></td>
+          <td><%= "#{continue.likes.count} いいね" %></td>
         </tr>
       <% end %>
     </tbody>
 </table>
+</div>

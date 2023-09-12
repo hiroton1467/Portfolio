@@ -1,9 +1,18 @@
-<table>
+<table class="table">
+  <thead class = "table-success">
+   <tr>
+    <td>ユーザー</td>
+    <td>投稿数</td>
+    <td>会員ステータス</td>
+   </tr>
+ </thead>
  <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= image_tag user.get_profile_image(100,100) %></td>
-          <td><%= link_to user.name, admin_user_path(user.id) %></td>
+          <td>
+            <%= image_tag user.get_profile_image(100,100) %>
+          　<%= link_to user.name, admin_user_path(user.id) %>
+          </td>
           <td>投稿数<%= user.continues.count %></td>
           <td>
             <% if user.is_deleted == false %>有効
@@ -12,5 +21,5 @@
           </td>
         </tr>
       <% end %>
-    </tbody>
+  </tbody>
 </table>

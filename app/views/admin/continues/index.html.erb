@@ -1,13 +1,26 @@
-<table>
- <tbody>
+<div class="container">
+<h2>＜継続一覧＞</h2>
+<table class = "table">
+ <thead class = "table-dark">
+   <tr>
+    <td>ユーザー</td>
+    <td>継続内容</td>
+    <td>いいね数</td>
+   </tr>
+ </thead>
+ 
+  <tbody>
       <% @continues.each do |continue| %>
         <tr>
-          <td><%= image_tag continue.user.get_profile_image(100,100) %></td>
-          <td><%= link_to continue.user.name, user_path(continue.user.id) %></td>
-          <td><%= link_to continue.title, continue_path(continue.id) %></td>
-          <td><%= link_to "#{continue.comments.count} コメント", continue_path(continue.id) %></td>
-          <td><%= link_to "削除", continue_path(continue.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+          <td>
+            <%= image_tag continue.user.get_profile_image(100,100) %>
+          　<%= link_to continue.user.name, admin_user_path(continue.user.id) %>
+          </td>
+          <td><%= link_to continue.title, admin_continue_path(continue.id) %></td>
+          <td><%= link_to "#{continue.likes.count} いいね", continue_path(continue.id) %></td>
+          <td><%= link_to "削除", admin_continue_path(continue.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
         </tr>
       <% end %>
-    </tbody>
+  </tbody>
 </table>
+</div>

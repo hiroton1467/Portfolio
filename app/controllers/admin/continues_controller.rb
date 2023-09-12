@@ -27,7 +27,7 @@ class Admin::ContinuesController < ApplicationController
   def destroy
     @continue = Continue.find(params[:id])
     @continue.destroy
-    redirect_to user_path(current_user.id)
+    redirect_to admin_user_path(@user.id)
   end
 
   

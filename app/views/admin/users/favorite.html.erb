@@ -1,0 +1,25 @@
+<div class="container">
+<h2>＜いいね一覧＞</h2>
+
+<table class = "table">
+ <thead class = "table-dark">
+   <tr>
+    <td>ユーザー</td>
+    <td>継続内容</td>
+    <td>いいね数</td>
+   </tr>
+ </thead>
+ <tbody>
+      <% @favorite_continues.each do |continue| %>
+        <tr>
+          <td>
+            <%= image_tag continue.user.get_profile_image(100,100) %>
+            <%= link_to continue.user.name, admin_user_path(continue.user.id) %>
+          </td>
+          <td><%= link_to continue.title, admin_continue_path(continue.id) %></td>
+          <td><%= "#{continue.likes.count} いいね数" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+</div>

@@ -3,7 +3,31 @@
 </div>
 
 
-
+<% @continue.continue_times.each.with_index(1) do |ct, i| %>
+    <div class="row">
+        <div class="col-md-4">
+            開始: <%= i %>回目:
+            <%= ct.start_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') %>
+        </div>
+        
+        <div class="col-md-4">
+            修了:
+            <%= ct.end_at.in_time_zone('Tokyo').strftime('%Y/%m/%d %H:%M:%S') unless ct.end_at.nil? %>
+        </div>
+        
+        <div class="col-md-4">
+            継続時間:
+             <% diff = ct.end_at - ct.start_at %>
+            <% s = diff % 60 %>
+            <% m = ((diff - s) / 60) % 60 %>
+            <% h = ((diff - s - m * 60) / (60 ** 2)) % 24 %>
+            <% d = ((diff - s - m * 60 - h * 60 ** 2) / (60**2 * 24)) %>
+            <%= "#{d.to_i}日 #{h.to_i}時間#{m.to_i}分#{s.to_i}秒" %>
+            
+            <%#= "#{((ct.end_at - ct.start_at) / 60).round}分" unless ct.end_at.nil? %>
+        </div>
+    </div>
+<% end %>
 
 
 

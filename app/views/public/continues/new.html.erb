@@ -1,8 +1,17 @@
+<% if @continue.errors.any? %>
+  <%= @continue.errors.count %>件のerrorが発生しました
+  <ul>
+    <% @continue.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
 
+<div class="container">
 
-<h2>New continue</h2>
+<h1>New continue</h1>
 
-<%=form_with model: Continue.new, url:continues_path, method: :post do |f| %>
+<%=form_with model: @continue, url:continues_path, method: :post do |f| %>
   <h4>タイトル</h4>
   <%= f.text_area :title %>
 
@@ -12,3 +21,5 @@
   <%= f.submit '継続を開始する' %>
 
   <% end %>
+
+</div>

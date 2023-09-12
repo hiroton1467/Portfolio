@@ -16,11 +16,11 @@ protected
 
 def user_state
   # 【処理内容1】 入力されたemailからアカウントを1件取得
-  @uer = User.find_by(email: params[:user][:email])
+  @user = User.find_by(email: params[:user][:email])
   # アカウントを取得できなかった場合、このメソッドを終了する
-  return if !@User
+  return if !@user
   # 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
-  if @User.valid_password?(params[:user][:password]) && @User.is_deleted
+  if @user.valid_password?(params[:user][:password]) && @user.is_deleted
      redirect_to new_user_registration_path
   end
 end

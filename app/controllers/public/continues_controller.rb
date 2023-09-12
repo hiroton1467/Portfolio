@@ -6,7 +6,7 @@ class Public::ContinuesController < ApplicationController
   end
 
   def new
-    @countinue = Continue.new
+    @continue = Continue.new
   end
 
   def show
@@ -32,7 +32,7 @@ class Public::ContinuesController < ApplicationController
 
   def update
   end
-  
+
   def destroy
     @continue = Continue.find(params[:id])
     @continue.destroy
@@ -46,12 +46,10 @@ class Public::ContinuesController < ApplicationController
      flash[:notice] = "投稿に成功しました"
     redirect_to continue_path(@continue.id)
    else
-     @continues = Continue.all
-     @user = current_user
-     render :index
+     render :new
    end
   end
-  
+
   private
   def continue_params
     params.require(:continue).permit(:title, :post, :start_at, :end_at, :period)

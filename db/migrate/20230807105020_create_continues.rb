@@ -3,9 +3,9 @@ class CreateContinues < ActiveRecord::Migration[6.1]
     create_table :continues do |t|
       t.string :post, null: false
       t.string :title, null: false
-      t.datetime :start_at, null: false
-      t.datetime :end_at, null: false
-      t.datetime :period, null: false
+      t.datetime :start_at
+      t.datetime :end_at
+      t.datetime :period
       t.integer :user_id, null: false
 
       t.timestamps

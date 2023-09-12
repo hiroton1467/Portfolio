@@ -1,4 +1,4 @@
-<%= form_with model: @user, url:user_path(current_user), method: :patch do |f| %>
+<%= form_with model: @user, url:user_path(@user.id), method: :patch do |f| %>
 
 <div class="container">
  <div class="row">
@@ -22,8 +22,8 @@
    </tr>
   </table>
  </div>
- 
+
 <%= f.submit '編集内容を保存する' %>
-<%= link_to "退会する", leave_path(current_user) %>
+<%= link_to "強制退会", admin_leave_path(@user.id) %>
 
 <% end %>
