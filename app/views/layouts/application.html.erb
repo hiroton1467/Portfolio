@@ -57,7 +57,11 @@
       <%= link_to new_user_registration_path do %>
       <i class="fa-sharp fa-solid fa-user-plus"></i>新規登録
       <% end %>
-      <%= link_to "ログイン", new_user_session_path %>
+      
+      <%= link_to new_user_session_path do %>
+      <i class="fa-sharp fa-solid fa-right-to-bracket"></i>ログイン
+      <% end %>
+      
     <% end %>
   </header>
   <body>

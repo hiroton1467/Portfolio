@@ -13,9 +13,9 @@
         <tr>
           <td>
           <%= image_tag continue.user.get_profile_image(100,100) %>
-          <%= link_to continue.user.name, user_path(continue.user.id) %>
+          <%= link_to continue.user.name, admin_user_path(continue.user.id) %>
           </td>
-          <td><%= link_to continue.title, continue_path(continue.id) %></td>
+          <td><%= link_to continue.title, admin_continue_path(continue.id) %></td>
           <td><%= "#{continue.comments.count} コメント" %></td>
         </tr>
       <% end %>

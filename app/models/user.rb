@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image
 
+   validates :name, presence: true
+
   has_many :continues, dependent: :destroy
   has_many :continue_times, dependent: :destroy
   has_many :likes, dependent: :destroy

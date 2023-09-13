@@ -22,12 +22,15 @@ class Admin::ContinuesController < ApplicationController
 
   def edit
   end
+  
+  def update
+  end
 
   
   def destroy
     @continue = Continue.find(params[:id])
     @continue.destroy
-    redirect_to admin_user_path(@user.id)
+    redirect_to admin_user_path
   end
 
   
