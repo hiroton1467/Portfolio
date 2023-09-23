@@ -3,15 +3,19 @@ Rails.application.routes.draw do
   devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   sessions: "admin/sessions"
 }
-   namespace :admin do
-   root to: 'homes#top'
-   get "users/favorite/:id" => "users#favorite", as: 'favorite'
-   get '/users/:id/leave' => 'users#leave', as: 'leave'
-   get "continues/search" => "continues#search", as: 'search'
-   resources :users, only: [:index, :show, :edit, :update, :destroy]
-   resources :continues, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
+  namespace :admin do
+    root to: 'homes#top'
+    get "users/favorite/:id" => "users#favorite", as: 'favorite'
+    get '/users/:id/leave' => 'users#leave', as: 'leave'
+    get "continues/search" => "continues#search", as: 'search'
+    resources :users do
+      member do
+        patch 'withdrawal'
+      end
+    end
+    resources :continues, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
-   end
+    end
   end
 
 

@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
 
+
     def index
       @users = User.all
     end
@@ -30,12 +31,15 @@ class Admin::UsersController < ApplicationController
      end
     end
 
-    def withdraw
+    def leave
+      @user = User.find(params[:id])
+    end
+
+    def withdrawal
      @user = User.find(params[:id])
-     @user.update(is_delete: true)
-     reset_session
+     @user.update(is_deleted: true)
      flash[:notice] = "退会処理を実行しました"
-     redirect_to root_path
+     redirect_to admin_users_path
     end
 
     private
